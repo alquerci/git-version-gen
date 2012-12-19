@@ -21,5 +21,16 @@ Installation
 
 You can check an exemple into the `Makefile` on this project.
 
+
+Acknowledgments
+---------------
+
+This project is based on the script [***GIT-VERSION-GEN***][2] of the [***git project***][3].
+
+Thanks to [***gitster***][4] and all of contributors to the project git.
+
 [0]: https://travis-ci.org/alquerci/git-version-gen.png?branch=master
 [1]: https://travis-ci.org/alquerci/git-version-gen
+[2]: https://github.com/git/git/blob/master/GIT-VERSION-GEN
+[3]: https://github.com/git/git
+[4]: https://github.com/gitster
