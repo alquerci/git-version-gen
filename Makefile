@@ -25,7 +25,7 @@ all:
 # The following line must be included into the root Makefile
 ### START ###
 # Use this version if no tag is defined
-export VERSION = 0.0.0
+VERSION = 0.0.0
 # Directory to auto generator script
 GVG_DIR = .
 -include git-version-gen.mak

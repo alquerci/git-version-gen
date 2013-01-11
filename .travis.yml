@@ -2,4 +2,5 @@ language: c
 
 script:
     - make test
+    - touch marker
     - make test
