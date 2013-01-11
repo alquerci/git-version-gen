@@ -2,5 +2,4 @@ language: c
 
 script:
     - make test
-    - make clean
     - make test
