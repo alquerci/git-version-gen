@@ -27,15 +27,13 @@ all:
 # Use this version if no tag is defined
 export VERSION = 0.0.0
 # Directory to auto generator script
-GVG_DIR = ./src
+GVG_DIR = .
 -include git-version-gen.mak
 ### END ###
 
-
 test:
-	@echo '[TEST]'
-	@echo '  - Makefile-VERSION = 0.0.0'
-	@echo '  - VERSION =' $(VERSION)
-	@test $(VERSION) != 0.0.0 || exit 1
-	@echo "OK"
+	@echo -n 'test_git-version-gen ... '
+	@if test $(VERSION) = 0.0.0;then echo 'fail\n  Makefile-VERSION = 0.0.0\n  VERSION =' $(VERSION); exit 1; fi;
+	@echo ok
+
 

@@ -25,24 +25,19 @@ SHELL_PATH ?= /bin/sh
 export VERSION ?= 0.0.1
 
 # file auto-generate containing the macro VERSION to be included into the Makefile
-export GIT_VERSION_FILE ?= GIT-VERSION-FILE
+export GVG_FILE ?= GVG-VERSION~
 
 # Directory to auto generator script
-GVG_DIR ?= ./src
+GVG_DIR ?= vendor/alquerci/git-version-gen
 
 # Path to auto generator script
-GVG_PATH = $(GVG_DIR)/git-version-gen.sh
+GVG_PATH = $(GVG_DIR)/src/git-version-gen.sh
 
-$(GIT_VERSION_FILE): FORCE
+$(GVG_FILE): FORCE
 	@$(SHELL_PATH) $(GVG_PATH)
--include $(GIT_VERSION_FILE)
+-include $(GVG_FILE)
 
 # Version must be generate for each times
 .PHONY: FORCE
 
 
-RM ?= /bin/rm --preserve-root
-
-
-clean:
-	$(RM) $(GIT_VERSION_FILE)

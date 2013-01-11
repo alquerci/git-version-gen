@@ -20,11 +20,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #########################################################################
 
-if [ -z "$GIT_VERSION_FILE" ];
+if [ -z "$GVG_FILE" ];
 then
-    VF="GIT-VERSION-FILE";
+    VF="GVG-VERSION~";
 else
-    VF="$GIT_VERSION_FILE";
+    VF="$GVG_FILE";
 fi
 
 LF='
