@@ -25,15 +25,12 @@ all:
 # The following line must be included into the root Makefile
 ### START ###
 # Use this version if no tag is defined
-VERSION = 0.0.0
-# Directory to auto generator script
-GVG_DIR = .
--include git-version-gen.mak
-### END ###
+
+VERSION = $(shell src/git-version-gen.sh)
 
 test:
-	@echo -n 'test_git-version-gen ... '
-	@if test $(VERSION) = 0.0.0;then echo 'fail\n  Makefile-VERSION = 0.0.0\n  VERSION =' $(VERSION); exit 1; fi;
+	@echo -n 'test_git-version-gen ... '$(VERSION)' ... '
+	@if test -z "$(VERSION)";then echo 'fail\n  Makefile-VERSION = 0.0.0\n VERSION='$(VERSION);exit 1; fi;
 	@echo ok
 
 
