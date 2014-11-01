@@ -20,12 +20,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #########################################################################
 
-committish=$(git log -n 1 --pretty="%H" "$@" || echo -n "HEAD");
+case $# in #(
+    0) committish='HEAD' ;; #(
+    *) committish=`git log -n 1 --pretty="%H" "$@"` ;;
+esac
 
-if [ -z "$VERSION" ];
-then
-    VERSION="0.0.1";
-fi
+VERSION=${VERSION='0.0.1'}
 
 LF='
 '
@@ -35,28 +35,30 @@ LF='
 # then try git-describe, then default.
 if test -f version
 then
-    VN=$(cat version) || VN="$VERSION"
-elif test -d .git -o -f .git &&
-    VN=$(git describe --match "v[0-9]*" --tags --abbrev=7 $committish 2>/dev/null) &&
-    case "$VN" in
-        *$LF*) (exit 1) ;;
+    VN=`cat version` || VN="${VERSION}"
+elif test -d .git || test -f .git &&
+    VN=`git describe --match "v[0-9]*" --tags --abbrev=7 ${committish} 2>/dev/null` &&
+    case ${VN} in #(
+        *${LF}*) (exit 1) ;; #(
         v[0-9]*)
             git update-index -q --refresh
-            test -z "$(git diff-index --name-only $committish --)" ||
-            VN="$VN-dirty" ;;
+            test x = x"`git diff-index --name-only ${committish} --`" ||
+            VN="${VN}-dirty" ;;
     esac
 then
-    VN=$(echo "$VN" | sed -e 's/-/./g');
+    VN=`sed -e 's,-,.,g' <<EOF
+$VN
+EOF`
 else
-    VN="$VERSION"
+    VN="${VERSION}"
 fi
 
-VN=$(expr "$VN" : v*'\(.*\)')
-
 # Remove prefix v
-VN="${VN#v}";
+VN=`expr x"${VN}" : x'v*\(.*\)'`
 
 # send the version to the stdout
-echo "$VN";
+cat <<EOF
+$VN
+EOF
 
-exit 0;
+exit 0
