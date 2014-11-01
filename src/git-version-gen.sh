@@ -20,8 +20,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #########################################################################
 
-committish=$(git log -n 1 --pretty="%H" "$@" || echo -n "HEAD");
-
 if [ -z "$VERSION" ];
 then
     VERSION="0.0.1";
@@ -37,12 +35,12 @@ if test -f version
 then
     VN=$(cat version) || VN="$VERSION"
 elif test -d .git -o -f .git &&
-    VN=$(git describe --match "v[0-9]*" --tags --abbrev=7 $committish 2>/dev/null) &&
+    VN=$(git describe --match "v[0-9]*" --tags --abbrev=7 HEAD 2>/dev/null) &&
     case "$VN" in
         *$LF*) (exit 1) ;;
         v[0-9]*)
             git update-index -q --refresh
-            test -z "$(git diff-index --name-only $committish --)" ||
+            test -z "$(git diff-index --name-only HEAD --)" ||
             VN="$VN-dirty" ;;
     esac
 then

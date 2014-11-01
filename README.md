@@ -21,7 +21,6 @@ You can check an exemple into the `Makefile` on this project.
 Features
 --------
 
-* `git-version-gen.sh <file>` get the version of the specific file, it's not tested yet.
 * If a file named `version` on the current directory then contains is read, formated and return.
 * If an environement variable VERSION exists then take it, formated and return.
 * If no git tags exits then retrun `0.0.1` or `VERSION` or in file `version`.
