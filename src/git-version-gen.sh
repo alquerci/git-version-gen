@@ -41,7 +41,14 @@ elif test -d .git || test -f .git &&
             VN="${VN}-dirty" ;;
     esac
 then
-    VN=`sed -e 's,-,.,g' <<EOF
+    # replace the lead hyphen by a dot
+    #
+    # from:
+    #   <tag>-<append by git describe>[-dirty]
+    # to:
+    #   <tag>.<append by git describe>[-dirty]
+    #
+    VN=`sed -e 's,-\([1-9][0-9]*-g[0-9a-z]\{7\}\(-dirty\)\?\)$,.\\1,' <<EOF
 $VN
 EOF`
 else
