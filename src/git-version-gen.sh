@@ -22,6 +22,49 @@
 
 VERSION=${VERSION='0.0.1'}
 
+# Processes command line arguments.
+#
+prevVarName=
+value=
+dashdash=
+for operand
+do
+    # If the previous operand needs a value, assign it.
+    if test x != x"${prevVarName}"; then
+        eval ${prevVarName}=\$operand
+        prevVarName=
+
+        continue
+    fi
+
+    # extract the value
+    case ${operand} in #(
+        *=?*)
+            value=`expr X"${operand}" : X'[^=]*=\(.*\)'`
+            ;; #(
+        *=)
+            value=
+            ;; #(
+        *)
+            value='yes'
+            ;;
+    esac
+
+    case ${dashdash}${operand} in #(
+        --)
+            dashdash='yes'
+            ;; #(
+        --fallback)
+            prevVarName='VERSION'
+            ;; #(
+        --fallback=*)
+            VERSION="${value}"
+            ;; #(
+        *)
+            ;;
+    esac
+done
+
 LF='
 '
 

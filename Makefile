@@ -28,9 +28,25 @@ all:
 
 VERSION = $(shell src/git-version-gen.sh)
 
-test:
+TESTS = \
+    testOptionFallback
+
+test: $(TESTS)
 	@echo -n 'test_git-version-gen ... '$(VERSION)' ... '
 	@if test -z "$(VERSION)";then echo 'fail\n  Makefile-VERSION = 0.0.0\n VERSION='$(VERSION);exit 1; fi;
 	@echo ok
 
-
+.PHONY: testOptionFallback
+testOptionFallback: src/git-version-gen.sh
+	@echo -n $@...
+	@mkdir $@ \
+	  && cd $@ \
+	  && test x'0.1.0-test' = x"`../$^ --fallback=0.1.0-test`" \
+	  && test x'0.1.0- test' = x"`../$^ --fallback='0.1.0- test'`" \
+	  && test x'0.1.0-test' = x"`../$^ --fallback 0.1.0-test`" \
+	  && test x'0.1.0- test' = x"`../$^ --fallback '0.1.0- test'`" \
+	  && test x'0.0.1' = x"`../$^`" \
+	  && test x'0.0.1' = x"`../$^ -- --fallback=0.1.0-test`" \
+	  && { cd .. && rm -r $@; } \
+	  || { cd .. && rm -r $@ && exit 1; }
+	@echo ' ok'
