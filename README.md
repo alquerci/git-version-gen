@@ -22,8 +22,9 @@ Features
 --------
 
 * If a file named `version` on the current directory then contains is read, formated and return.
+* If the `--fallback` option is given then take it, formated and return.
 * If an environement variable VERSION exists then take it, formated and return.
-* If no git tags exits then retrun `0.0.1` or `VERSION` or in file `version`.
+* If no git tags exits then retrun `0.0.1` or `VERSION` or `--fallback` value or in file `version`.
 
 Acknowledgments
 ---------------
