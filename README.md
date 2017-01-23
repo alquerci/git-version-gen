@@ -28,6 +28,8 @@ Features
 * If an environment variable `VERSION` exists, then take it, formatted and returned.
 * If there is no git tag in the commit history, then return `0.1.0` or `VERSION`
   or `--fallback` value or use the value on the file `version`.
+* If there is no git tag in the commit history, then use the `--fallback-commit` option
+  to specify a base commit hash.
 
 Acknowledgments
 ---------------
