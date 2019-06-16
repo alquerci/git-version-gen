@@ -20,7 +20,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #########################################################################
 
-VERSION=${VERSION='0.0.1'}
+VERSION=${VERSION='0.1.0'}
 
 # Processes command line arguments.
 #
@@ -84,7 +84,7 @@ elif test -d .git || test -f .git &&
             VN="${VN}-dirty" ;;
     esac
 then
-    # replace the lead hyphen by a dot
+    # Replace the lead hyphen by a dot.
     #
     # from:
     #   <tag>-<append by git describe>[-dirty]

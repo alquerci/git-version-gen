@@ -22,9 +22,9 @@
 # The default target of this Makefile is...
 all:
 
-# The following line must be included into the root Makefile
+# The following line must be included into the root Makefile.
 ### START ###
-# Use this version if no tag is defined
+# Use this version if no tag is defined.
 
 VERSION = $(shell src/git-version-gen.sh)
 
