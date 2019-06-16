@@ -25,7 +25,7 @@ case $# in #(
     *) committish=`git log -n 1 --pretty="%H" "$@"` ;;
 esac
 
-VERSION=${VERSION='0.0.1'}
+VERSION=${VERSION='0.1.0'}
 
 LF='
 '
