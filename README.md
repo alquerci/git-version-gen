@@ -3,7 +3,7 @@ git-version-gen
 
 [![Build Status][0]][1]
 
-Tool provides version auto-generation using git tags
+This tool provides version auto-generation using git tags.
 
 
 Installation
@@ -11,20 +11,23 @@ Installation
 
 #### Makefile
 
-* Use this syntax
+Use this following syntax:
 
-`VERSION = $(shell path/to/git-version-gen.sh)`
+```
+VERSION = $(shell path/to/git-version-gen.sh)
+```
 
-
-You can check an exemple into the `Makefile` on this project.
+You can check an example into the `Makefile` on this project.
 
 Features
 --------
 
 * `git-version-gen.sh <file>` get the version of the specific file, it's not tested yet.
-* If a file named `version` on the current directory then contains is read, formated and return.
-* If an environement variable VERSION exists then take it, formated and return.
-* If no git tags exits then retrun `0.0.1` or `VERSION` or in file `version`.
+* If a file named `version` on the current directory exists, then it contains
+  is read, formatted and returned.
+* If an environment variable `VERSION` exists, then take it, formatted and returned.
+* If there is no git tag in the commit history, then return `0.0.1` or `VERSION`
+  or use the value on the file `version`.
 
 Acknowledgments
 ---------------
