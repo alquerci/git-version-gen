@@ -29,6 +29,7 @@ all:
 VERSION = $(shell src/git-version-gen.sh)
 
 TESTS = \
+    testOptionFallbackCommit \
     testOptionFallback
 
 test: $(TESTS)
@@ -49,4 +50,19 @@ testOptionFallback: src/git-version-gen.sh
 	  && test x'0.1.0' = x"`../$^ -- --fallback=0.1.0-test`" \
 	  && { cd .. && rm -r $@; } \
 	  || { cd .. && rm -r $@ && exit 1; }
+	@echo ' ok'
+
+.PHONY: testOptionFallbackCommit
+testOptionFallbackCommit: src/git-version-gen.sh
+	@echo -n $@...
+	@mkdir $@ \
+	  && cd $@ \
+	  && git init -q \
+	  && git commit -q --allow-empty -m"Initial commit" \
+	  && git commit -q --allow-empty -m"2nd commit" \
+	  && hash=`git rev-list -1 HEAD -- | cut -c -7` \
+	  && test x"0.1.0-1.g$${hash}" = x"`../$^ --fallback-commit=$${hash}^`" \
+	  && test x"0.1.0" = x"`../$^ --fallback-commit=$${hash}`" \
+	  && { cd .. && rm -rf $@; } \
+	  || { cd .. && rm -rf $@ && exit 1; }
 	@echo ' ok'

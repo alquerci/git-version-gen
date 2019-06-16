@@ -60,6 +60,12 @@ do
         --fallback=*)
             VERSION="${value}"
             ;; #(
+        --fallback-commit)
+            prevVarName='fallbackCommit'
+            ;; #(
+        --fallback-commit=*)
+            fallbackCommit="${value}"
+            ;; #(
         *)
             ;;
     esac
@@ -94,6 +100,17 @@ then
     VN=`sed -e 's,-\([1-9][0-9]*-g[0-9a-z]\{7\}\(-dirty\)\?\)$,.\\1,' <<EOF
 $VN
 EOF`
+elif test -d .git || test -f .git &&
+    test x != x"$fallbackCommit" &&
+    rev=`git log --pretty=%h "${fallbackCommit}.." | grep -c .` &&
+    case ${rev} in #(
+        0) VN=v${VERSION} ;; #(
+        *) VN=v${VERSION}-`expr ${rev}`.g`git log --pretty=%h HEAD -1` ;;
+    esac
+then
+    git update-index -q --refresh
+    test x = x"`git diff-index --name-only HEAD --`" ||
+    VN="${VN}-dirty"
 else
     VN="${VERSION}"
 fi
