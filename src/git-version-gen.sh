@@ -21,6 +21,7 @@
 #########################################################################
 
 VERSION=${VERSION='0.1.0'}
+versionPattern=${GIT_TAG_VERSION_PETTERN='v[0-9]*'}
 
 # Processes command line arguments.
 #
@@ -66,6 +67,12 @@ do
         --fallback-commit=*)
             fallbackCommit="${value}"
             ;; #(
+        --version-pattern)
+            prevVarName='versionPattern'
+            ;; #(
+        --version-pattern=*)
+            versionPattern="${value}"
+            ;; #(
         *)
             ;;
     esac
@@ -81,7 +88,7 @@ if test -f version
 then
     VN=`cat version` || VN="${VERSION}"
 elif test -d .git || test -f .git &&
-    VN=`git describe --match "v[0-9]*" --tags --abbrev=7 HEAD 2>/dev/null` &&
+    VN=`git describe --match "${versionPattern}" --tags --abbrev=7 HEAD 2>/dev/null` &&
     case ${VN} in #(
         *${LF}*) (exit 1) ;; #(
         v[0-9]*)
