@@ -45,8 +45,8 @@ testOptionFallback: src/git-version-gen.sh
 	  && test x'0.1.0- test' = x"`../$^ --fallback='0.1.0- test'`" \
 	  && test x'0.1.0-test' = x"`../$^ --fallback 0.1.0-test`" \
 	  && test x'0.1.0- test' = x"`../$^ --fallback '0.1.0- test'`" \
-	  && test x'0.0.1' = x"`../$^`" \
-	  && test x'0.0.1' = x"`../$^ -- --fallback=0.1.0-test`" \
+	  && test x'0.1.0' = x"`../$^`" \
+	  && test x'0.1.0' = x"`../$^ -- --fallback=0.1.0-test`" \
 	  && { cd .. && rm -r $@; } \
 	  || { cd .. && rm -r $@ && exit 1; }
 	@echo ' ok'
