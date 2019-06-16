@@ -46,7 +46,7 @@ elif test -d .git || test -f .git &&
             VN="${VN}-dirty" ;;
     esac
 then
-    # replace the lead hyphen by a dot
+    # Replace the lead hyphen by a dot.
     #
     # from:
     #   <tag>-<append by git describe>[-dirty]
